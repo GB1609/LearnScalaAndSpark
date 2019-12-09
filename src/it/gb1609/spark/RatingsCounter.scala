@@ -19,6 +19,7 @@ object RatingsCounter extends App {
   // (The file format is userID, movieID, rating, timestamp)
   val ratings = lines.map(x => x.toString().split("\t")(2))
 
+
   // Count up how many times each value (rating) occurs
   val results = ratings.countByValue()
 

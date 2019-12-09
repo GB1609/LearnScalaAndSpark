@@ -7,7 +7,8 @@ object Fake_Friends extends App {
 
   Logger.getLogger("org").setLevel(Level.ERROR)
 
-  def parseLine(line: String): (Int, Int) = {
+  def parseLine(line: String) = {
+    println(line)
     val fields = line.split(",")
     val age = fields(2).toInt
     val numFriends = fields(3).toInt
@@ -16,13 +17,11 @@ object Fake_Friends extends App {
 
   val sparkContext = new SparkContext("local[*]", "FakeF")
   val lines = sparkContext.textFile("data_testing/fakefriends.csv")
+  val a=lines.collect()
+  val ages = a.map(parseLine)
 
-  for (l <- lines) {
-    println(l)
-  }
-  val ages = lines.map(parseLine)
-/*
-  val totalByAges = ages.mapValues(x => (x, 1)).reduceByKey((x, y) => (x._1 + y._1, x._2 + y._2))
-*/
+  /*val totalByAges = ages.mapValues(x => (x, 1)).reduceByKey((x, y) => (x._1 + y._1, x._2 + y._2))
+  val rdd = totalByAges.collect()*/
+
 
 }

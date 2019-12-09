@@ -27,7 +27,7 @@ object BeginWithSpark extends App {
   var toPrint=(test_list).map(testing_functions(_))
   end = System.currentTimeMillis()
   for (x <- toPrint)
-    println(testing_functions(x))
+    println(x)
   println("TIME SPARK: " + (end - begin))
 
 }
