@@ -22,5 +22,4 @@ object AvgFriendByName extends App {
   val results = averagesByName.collect()
   results.sortBy(x=>x._2).reverse.foreach(println)
 
-
 }
