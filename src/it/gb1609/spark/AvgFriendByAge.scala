@@ -3,7 +3,7 @@ package it.gb1609.spark
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.SparkContext
 
-object Fake_Friends extends App {
+object AvgFriendByAge extends App {
 
   Logger.getLogger("org").setLevel(Level.ERROR)
 
@@ -17,11 +17,19 @@ object Fake_Friends extends App {
 
   val sparkContext = new SparkContext("local[*]", "FakeF")
   val lines = sparkContext.textFile("data_testing/fakefriends.csv")
-  val a=lines.collect()
-  val ages = a.map(parseLine)
 
-  /*val totalByAges = ages.mapValues(x => (x, 1)).reduceByKey((x, y) => (x._1 + y._1, x._2 + y._2))
-  val rdd = totalByAges.collect()*/
+  val ages = lines.map(line => {
+    println(line)
+    val fields = line.split(",")
+    val age = fields(2).toInt
+    val numFriends = fields(3).toInt
+    (age, numFriends)
+  })
+
+  val totalByAges = ages.mapValues(x => (x, 1)).reduceByKey((x, y) => (x._1 + y._1, x._2 + y._2))
+  val averagesByAge = totalByAges.mapValues(x => x._1 / x._2)
+  val results = averagesByAge.collect()
+  results.sorted.foreach(println)
 
 
 }
