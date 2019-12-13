@@ -20,6 +20,6 @@ object AvgFriendByName extends App {
   val totalByNames = tuples.mapValues(x => (x, 1)).reduceByKey((x, y) => (x._1 + y._1, x._2 + y._2))
   val averagesByName = totalByNames.mapValues(x => x._1 / x._2)
   val results = averagesByName.collect()
-  results.sortBy(x=>x._2).reverse.foreach(println)
+  results.sortBy(x => x._2).reverse.foreach(println)
 
 }

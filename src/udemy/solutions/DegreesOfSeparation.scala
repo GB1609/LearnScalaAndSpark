@@ -1,10 +1,10 @@
 package udemy.solutions
 
+import org.apache.log4j._
 import org.apache.spark._
-import org.apache.spark.SparkContext._
 import org.apache.spark.rdd._
 import org.apache.spark.util.LongAccumulator
-import org.apache.log4j._
+
 import scala.collection.mutable.ArrayBuffer
 
 /** Finds the degrees of separation between two Marvel comic book characters, based
@@ -55,7 +55,7 @@ object DegreesOfSeparation {
   
   /** Create "iteration 0" of our RDD of BFSNodes */
   def createStartingRdd(sc:SparkContext): RDD[BFSNode] = {
-    val inputFile = sc.textFile("../marvel-graph.txt")
+    val inputFile = sc.textFile("data_testing/Marvel-graph.txt")
     return inputFile.map(convertToBFS)
   }
   
