@@ -9,25 +9,24 @@ object BeginWithSpark extends App {
     (Math.pow(x, 3) - (Math.pow(x, 2) * 10)).toInt
   }
 
-  val test_list = 1 to 100000
+  val testList = 1 to 100000000
 
   var begin = System.currentTimeMillis()
 
-  for (x <- test_list)
-    println(testing_functions(x))
-
+  val serialUse = testList.map(testing_functions)
+  println(serialUse.length)
   var end = System.currentTimeMillis()
 
   println("TIME SERIAL: " + (end - begin))
 
   Logger.getLogger("org").setLevel(Level.ERROR)
   val sparkContext = new SparkContext("local[*]", "TestingSpark")
+  val rddTestList = sparkContext.parallelize(testList)
 
   begin = System.currentTimeMillis()
-  var toPrint=(test_list).map(testing_functions)
+  val useSpark = rddTestList.map(testing_functions)
+  println(useSpark.count)
   end = System.currentTimeMillis()
-  for (x <- toPrint)
-    println(x)
   println("TIME SPARK: " + (end - begin))
 
 }
