@@ -24,7 +24,7 @@ object BeginWithSpark extends App {
   val sparkContext = new SparkContext("local[*]", "TestingSpark")
 
   begin = System.currentTimeMillis()
-  var toPrint=(test_list).map(testing_functions(_))
+  var toPrint=(test_list).map(testing_functions)
   end = System.currentTimeMillis()
   for (x <- toPrint)
     println(x)
